@@ -1,6 +1,6 @@
 // WiFi Configuration
-const char* ssid = "MiFibra-2D79";
-const char* password = "oqnQYSp3";
+const char* ssid = "???????;
+const char* password = "??????";
 
 // MQTT Cibfiguration
 const char* mqtt_server = "192.168.1.114";
