@@ -8,9 +8,10 @@ So the contribution to expenses is not fair.
 
 ## Deployed idea
 <img src="https://github.com/McOrts/Water_flow_sensor_MQTT/blob/master/Pictures/WEMOS-D1-mini-PRO_pinout.jpg" width="350" align="left" />
-I have developed my own home automation architecture. The archetype for any sensor includes a microcontroller based on ESP8266 and connectivity though a MQTT broker. 
 
-The best implementation for this use case is WEMOS D1 mini PRO, since a large WiFi range required. 
+I have developed my own home automation architecture. The archetype for any sensor includes a microcontroller based on ESP8266 and connectivity though a MQTT broker.
+
+The best implementation for this use case is WEMOS D1 mini PRO, since a large WiFi range required. And it provides a 5v supplier pinout on board needed for the water flow sensor. 
 
 ## Things used in this project
 **Hardware components**
