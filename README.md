@@ -1,5 +1,4 @@
 # Water flow sensor based on WEMOS D1 Pro with a hall sensor MQTT connected
-Water flow sensor based on WEMOS D1 Pro with a hall sensor
 
 ## The problem
 Many block of flats in Mallorca have only one water mater. 
