@@ -7,6 +7,7 @@ Obviously, not all residents consume the same amount of water.
 So the contribution to expenses is not fair.
 
 ## An idea deloyed
+<img src="https://github.com/McOrts/Water_flow_sensor_MQTT/blob/master/Pictures/WEMOS-D1-mini-PRO_pinout.jpg" width="350" align="left" />
 I have developed my own home automation architecture. The archetype for any sensor includes a microcontroller based on ESP8266 and connectivity though a MQTT broker. 
 The best implementation for this use case is WEMOS D1 mini PRO, since a large WiFi range required. 
 
@@ -34,6 +35,12 @@ I have used prototyping material. What is working is proof of concept for the us
 <img src="https://github.com/McOrts/Water_flow_sensor_MQTT/blob/master/Pictures/Water_flow_sensor_MQTT_bb.png" width="300"  align="center" /> 
 
 **Node-RED flow**
-It´s integrated on my home automatization dashboard as a independent flow.
+It´s integrated on my home automatization dashboard as a independent flow. 
 <img src="https://github.com/McOrts/Water_flow_sensor_MQTT/blob/master/Pictures/Water_flow_sensor_MQTT_NODE-RED.png" align="center" /> 
+
+The dashboard includes an alarm and an indicator of daily consumption with a chart showing the historical data of the last three days.
+<img src="https://github.com/McOrts/Water_flow_sensor_MQTT/blob/master/Pictures/Water_flow_sensor_MQTT_NODE-RED_UI.png" align="right" /> 
+
+<img src="https://github.com/McOrts/Water_flow_sensor_MQTT/blob/master/Pictures/Water_flow_sensor_MQTT_real.GIF" align="center" /> 
+
 
