@@ -7,6 +7,13 @@
 
 #include "settings.h"
 
+volatile bool buttonPressed = false;
+
+// Interrupt Service Routine (ISR)
+ICACHE_RAM_ATTR void buttonInterrupt() {
+  buttonPressed = true;
+}
+
 /* Configuración cliente WiFi */
 WiFiClient espClient;
 
@@ -22,7 +29,7 @@ float CountLitre = 0;
 long CountStart = 0;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(74880);
   digitalWrite(LED_BUILTIN, HIGH);
 
   // initialize digital pin LED_BUILTIN as an output.
@@ -32,13 +39,15 @@ void setup() {
   setup_wifi();
   clientMqtt.setServer(mqtt_server, mqtt_port);
   clientMqtt.setCallback(callback);
+  delay(500);
 
-  /* Iiniciar sensor */
-  pinMode(FlowSensorPin, INPUT);
+  /* Iniciar sensor */
+  pinMode(FlowSensorPin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(FlowSensorPin), buttonInterrupt, FALLING);  
 }
 
 void setup_wifi() {
-  delay(10);
+  delay(500);
 
   // Comienza el proceso de conexión a la red WiFi
   Serial.println();
@@ -106,22 +115,23 @@ void loop() {
   }
   clientMqtt.loop();
 
-  FlowSensorState = digitalRead(FlowSensorPin);
-  if (FlowSensorState == HIGH) {
+  if (buttonPressed) {
+    buttonPressed = false;
     CountFlow += 1;
     digitalWrite(LED_BUILTIN, LOW);   // turn the LED on (HIGH is the voltage level)  
-  } else {
-    digitalWrite(LED_BUILTIN, HIGH) ;    // turn the LED off by making the voltage LOW
+    Serial.print(".");
   }
+
   long now_sensors = millis();
   if (now_sensors - CountStart > update_time_sensors) {
+    digitalWrite(LED_BUILTIN, HIGH) ;    // turn the LED off by making the voltage LOW
     CountStart = now_sensors;
     Serial.println("Resume--------------------------------------");
-    if (CountFlow > 1500000 || CountFlow == 0) {
+    if ( CountFlow == 0) {
       clientMqtt.publish(mqtt_pub_topic_waterflow, "0");  
     } else {
       //Flow pulse characteristics (6.6*L/Min)
-      CountLitre = CountFlow*6.6/2815562;
+      CountLitre = CountFlow * 0.00225;
       snprintf (msg, 10, "%6.2f", CountLitre);
       clientMqtt.publish(mqtt_pub_topic_waterflow, msg);   
       Serial.print(msg);
